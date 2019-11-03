@@ -92,12 +92,12 @@ public class ObjectCreator {
 	
 	private static void printObjectMenu() {
 		System.out.println("\nEnter a number for which type of object to create:\n");
-		System.out.println("0. Finish creating objects.");
-		System.out.println("1. int & double field.");
-		System.out.println("2. Array of ints.");
-		System.out.println("3. Reference to an object.");
-		System.out.println("4. Array of references to objects.");
-		System.out.println("5. ArrayList of object references.");
+		System.out.println("  0. Finish creating objects.");
+		System.out.println("  1. int & double field.");
+		System.out.println("  2. Array of ints.");
+		System.out.println("  3. Reference to an object.");
+		System.out.println("  4. Array of references to objects.");
+		System.out.println("  5. ArrayList of object references.");
 	}
 	
 	private static int getArrayOrListLength(String formatWord) {
@@ -186,13 +186,13 @@ public class ObjectCreator {
 	}
 	
 	private static SimpleReference createSimpleRef() {
-		System.out.println("Creating an object with an object reference field...");
+		System.out.println("\nCreating an object with an object reference field...");
 		
 		return new SimpleReference(createSimplePrim());
 	}
 	
 	private static ArrayReference createArrayRef() {
-		System.out.println("Creating an object with an array of object references...");
+		System.out.println("\nCreating an object with an array of object references...");
 		int len;
 		SimplePrimitive[] arrayOfObjs;
 		
@@ -201,6 +201,7 @@ public class ObjectCreator {
 		arrayOfObjs = new SimplePrimitive[len];
 		
 		for(int i = 0; i < len; i++) {
+			System.out.print("Object " + (i+1) + ": ");
 			arrayOfObjs[i] = createSimplePrim();
 		}
 		
@@ -208,7 +209,7 @@ public class ObjectCreator {
 	}
 	
 	private static CollectionReference createCollectionRef() {
-		System.out.println("Creating an object with an ArrayList of object references...");
+		System.out.println("\nCreating an object with an ArrayList of object references...");
 		int len;
 		int selection;
 		ArrayList<MySuper> collectionOfObjs;
@@ -219,8 +220,8 @@ public class ObjectCreator {
 		
 		for(int i = 0; i < len; i++) {
 			try {
-				System.out.println("What would you like object " + (i+1) + " to be?");
-				System.out.println("Enter 1 for int and double fields.\nEnter 2 for array of ints field.");
+				System.out.println("\nWhat would you like object " + (i+1) + " to be?");
+				System.out.println("  Enter 1 for int and double fields.\n  Enter 2 for array of ints field.");
 				selection = in.nextInt();
 				while(selection > 2 || selection < 1) {
 					System.out.println("Invalid selection!\nPlease try again.\n");
