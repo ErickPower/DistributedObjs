@@ -1,5 +1,6 @@
+package assignment_3;
 
-public class ArrayPrimitive {
+public class ArrayPrimitive extends MySuper {
 	
 	private int[] intArrayField;
 	

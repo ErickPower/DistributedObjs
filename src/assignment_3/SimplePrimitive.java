@@ -1,5 +1,6 @@
+package assignment_3;
 
-public class SimplePrimitive {
+public class SimplePrimitive extends MySuper {
 	
 	private int intField;
 	private double doubField;
