@@ -6,10 +6,14 @@ import java.util.Scanner;
 
 public class ObjectCreator {
 	
+	private static int totalCreated;
+	private static int totalReferenced;
+	
 	private static Scanner in = new java.util.Scanner(System.in);
 	
 	public static ArrayList<Object> createObjects() {
-		
+		totalCreated = 0;
+		totalReferenced = 0;
 		ArrayList<Object> myObjs = new ArrayList<Object>();
 		
 		int selection;
@@ -70,6 +74,7 @@ public class ObjectCreator {
 			try {
 				//get next obj selection
 				printObjectMenu();
+				System.out.println("(" + (totalCreated - totalReferenced) + " objects currently, referencing " + totalReferenced + " more objects, for a total of " + totalCreated + " objects)");
 				selection = in.nextInt();
 				
 			} catch (InputMismatchException e) {
@@ -151,7 +156,7 @@ public class ObjectCreator {
 			}
 		}
 		
-		
+		totalCreated++;
 		return new SimplePrimitive(intParm, doubParm);
 	}
 	
@@ -182,12 +187,15 @@ public class ObjectCreator {
 			}
 		}
 		
+		totalCreated++;
 		return new ArrayPrimitive(arrayInts);
 	}
 	
 	private static SimpleReference createSimpleRef() {
 		System.out.println("\nCreating an object with an object reference field...");
 		
+		totalReferenced++;
+		totalCreated++;
 		return new SimpleReference(createSimplePrim());
 	}
 	
@@ -201,10 +209,12 @@ public class ObjectCreator {
 		arrayOfObjs = new SimplePrimitive[len];
 		
 		for(int i = 0; i < len; i++) {
-			System.out.print("Object " + (i+1) + ": ");
+			System.out.print("\nObject " + (i+1) + ": ");
 			arrayOfObjs[i] = createSimplePrim();
 		}
 		
+		totalCreated++;
+		totalReferenced += len;
 		return new ArrayReference(arrayOfObjs);
 	}
 	
@@ -247,6 +257,9 @@ public class ObjectCreator {
 				System.exit(-1);
 			}
 		}
+		
+		totalCreated++;
+		totalReferenced += len;
 		
 		return new CollectionReference(collectionOfObjs);
 		
