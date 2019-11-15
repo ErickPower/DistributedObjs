@@ -187,25 +187,6 @@ public class Serializer {
 				;//TODO object already serialized. get the ID of object.
 			}
 		}
-		//Handling array field
-		/*else if(field.getClass().isArray()) {
-			
-			//Array of primitives
-			if(field.getClass().getComponentType().isPrimitive()) {
-				Object referencedArray = field.get(obj);
-				for(int i = 0; i < Array.getLength(referencedArray); i++) {
-					Object elem = Array.get(referencedArray, i);
-				}
-			}
-			//Array of objects
-			else {
-				
-			}
-			
-
-			
-		}*/
-		
 		
 		fieldElement.addContent(valueElement);
 		return fieldElement;

@@ -55,6 +55,7 @@ public class MethodTester {
 				System.out.println(resp + " is an invalid choice!\nPlease try again...\n");
 			}
 		}
+		in.close();
 		
 	}
 

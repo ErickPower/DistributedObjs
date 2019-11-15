@@ -1,7 +1,6 @@
 package assignment_3;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ObjectCreator {
@@ -23,7 +22,7 @@ public class ObjectCreator {
 		//Get first object
 		while(true) {
 			try {
-				selection = in.nextInt();
+				selection = Integer.parseInt(in.nextLine());
 				
 				if(selection > 0 && selection < 6) {
 					break;
@@ -34,7 +33,7 @@ public class ObjectCreator {
 				}
 				
 			}
-			catch (InputMismatchException e) {
+			catch (NumberFormatException e) {
 				System.out.println("Please enter an integer between 0 and 5:");
 			}
 			catch (Exception e) {
@@ -75,9 +74,9 @@ public class ObjectCreator {
 				//get next obj selection
 				printObjectMenu();
 				System.out.println("(" + (totalCreated - totalReferenced) + " objects currently, referencing " + totalReferenced + " more objects, for a total of " + totalCreated + " objects)");
-				selection = in.nextInt();
+				selection = Integer.parseInt(in.nextLine());
 				
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Please enter an integer between 0 and 5:");
 			}
 			catch (Exception e) {
@@ -91,7 +90,7 @@ public class ObjectCreator {
 		
 		System.out.println("0 Chosen. Done creating objects.");
 			
-		in.close();
+		//in.close();
 		return myObjs;
 	}
 	
@@ -112,14 +111,14 @@ public class ObjectCreator {
 		while(true) {
 			try {
 				
-				len = in.nextInt();
+				len = Integer.parseInt(in.nextLine());
 				while(len < 1) {
 					System.out.println("Length must be minimum of 1 element!\nPlease enter a new length: ");
-					len = in.nextInt();
+					len = Integer.parseInt(in.nextLine());
 				}
 				break;
 				
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Enter valid numbers!");
 			} catch (Exception e) {
 				System.err.println("Error in input! exiting...");
@@ -148,7 +147,7 @@ public class ObjectCreator {
 				doubParm = Double.parseDouble(in.nextLine());
 				break;
 				
-			}catch (InputMismatchException e) {
+			}catch (NumberFormatException e) {
 				System.out.println("Enter valid numbers!");
 			}catch (Exception e) {
 				System.err.println("Error in input! exiting...");
@@ -175,10 +174,10 @@ public class ObjectCreator {
 			try {
 				
 				System.out.println("Enter an integer for position " +(i+1) + " of the array: ");
-				int nextVal = in.nextInt();
+				int nextVal = Integer.parseInt(in.nextLine());
 				arrayInts[i] = nextVal; 
 				
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Enter a valid number!");
 				i--;
 			} catch (Exception e) {
@@ -233,11 +232,11 @@ public class ObjectCreator {
 			try {
 				System.out.println("\nWhat would you like object " + (i+1) + " to be?");
 				System.out.println("  Enter 1 for int and double fields.\n  Enter 2 for array of ints field.");
-				selection = in.nextInt();
+				selection = Integer.parseInt(in.nextLine());
 				while(selection > 2 || selection < 1) {
 					System.out.println("Invalid selection!\nPlease try again.\n");
 					System.out.println("Enter 1 for int and double fields.\nEnter 2 for array of ints field.");
-					selection = in.nextInt();
+					selection = Integer.parseInt(in.nextLine());
 				}
 				
 				if(selection == 1) {
@@ -249,7 +248,7 @@ public class ObjectCreator {
 					collectionOfObjs.add(createArrayPrim());
 				}
 				
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Enter a valid number!");
 				i--;
 			} catch (Exception e) {

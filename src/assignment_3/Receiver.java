@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.jdom2.Document;
@@ -30,7 +29,7 @@ public class Receiver { //server
 		while(true) {
 			
 			try{
-				portNum = in.nextInt();
+				portNum = Integer.parseInt(in.nextLine());
 				if(portNum >= 0 && portNum <= 65535) {
 					break;
 				}
@@ -38,7 +37,7 @@ public class Receiver { //server
 					System.out.print("Port must be between 0 and 65535!\nPlease try again: ");
 				}
 			}
-			catch(InputMismatchException e) {
+			catch(NumberFormatException e) {
 				System.err.print("Port must be an integer!\nPlease try again:");
 			}
 			catch(Exception e) {

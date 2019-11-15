@@ -22,14 +22,14 @@ public class Sender { //client
 	 */
 	public static void sendDoc(Document doc) {
 		String hostName = "assignment_3.Receiver";
-		
+		System.out.println("Document receiver MUST be currently running!!\n");
 		//Getting the port number of the server:
 		Scanner in = new java.util.Scanner(System.in);
-		System.out.print("Enter a port number: ");
+		System.out.print("Enter the port number of the receiving socket: ");
 		int portNum;
 		while(true) {
 			try{
-				portNum = in.nextInt();
+				portNum = Integer.parseInt(in.nextLine());
 				if(portNum >= 0 && portNum <= 65535) {
 					break;
 				}
@@ -37,7 +37,7 @@ public class Sender { //client
 					System.out.print("Port must be between 0 and 65535!\nPlease try again: ");
 				}
 			}
-			catch(InputMismatchException e) {
+			catch(NumberFormatException e) {
 				System.err.print("Port must be an integer!\nPlease try again:");
 			}
 			catch(Exception e) {
