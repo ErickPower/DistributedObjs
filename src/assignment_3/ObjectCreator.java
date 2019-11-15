@@ -141,10 +141,11 @@ public class ObjectCreator {
 			try{
 				
 				System.out.println("Enter a whole number for the int field of the object: ");
-				intParm = in.nextInt();
+				intParm =  Integer.parseInt(in.nextLine());
+				System.out.println(intParm + " entered... " );
 				
 				System.out.println("Enter a floating point number for the double field of the object: ");
-				doubParm = in.nextDouble();
+				doubParm = Double.parseDouble(in.nextLine());
 				break;
 				
 			}catch (InputMismatchException e) {
