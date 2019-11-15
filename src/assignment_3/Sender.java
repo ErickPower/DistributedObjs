@@ -2,13 +2,11 @@ package assignment_3;
 
 
 
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.InputMismatchException;
+import java.net.UnknownHostException;
 import java.util.Scanner;
-
-import javax.sound.midi.SysexMessage;
+import java.net.InetAddress;
 
 import org.jdom2.Document;
 import org.jdom2.output.Format;
@@ -21,10 +19,35 @@ public class Sender { //client
 	 * @param doc the document to send over the network
 	 */
 	public static void sendDoc(Document doc) {
-		String hostName = "localhost"; //Change when not on same PC ///////////////////////////////////////////////////////////////TODO
+		String hostName; //Change when not on same PC ///////////////////////////////////////////////////////////////TODO
 		System.out.println("Document receiver MUST be currently running!!\n");
 		//Getting the port number of the server:
 		Scanner in = new java.util.Scanner(System.in);
+		
+		System.out.print("Enter the ip address of the receiving socket: ");
+		
+		String ipAddr = in.nextLine();
+		InetAddress sockAddr;
+		
+		int trys = 3;
+		
+		while (true) {
+			try {
+				sockAddr = InetAddress.getByName(ipAddr);
+				break;
+			} catch (UnknownHostException e) {
+				--trys;
+				System.err.println("Error getting ip address. Please try again!");
+				if(trys == 0 ) {
+					System.err.println("Too many attempts.\nQuitting!");
+					e.printStackTrace();
+					System.exit(-1);
+				}
+				System.err.println("(quitting after " + trys + " attempts)");
+			}
+		}
+		
+		
 		System.out.print("Enter the port number of the receiving socket: ");
 		int portNum;
 		while(true) {
@@ -52,7 +75,7 @@ public class Sender { //client
 		
 		//Creating socket for connection: 
 		try(
-				Socket sendSock = new Socket(hostName, portNum);
+				Socket sendSock = new Socket(sockAddr, portNum);
 				PrintWriter out = new PrintWriter(sendSock.getOutputStream(), true);
 		){
 			//Sending contents of doc as string.

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.net.InetAddress;
 
 import org.jdom2.Document;
 import org.jdom2.input.SAXBuilder;
@@ -23,6 +24,7 @@ public class Receiver { //server
 		
 		//Getting port number for connection
 		Scanner in = new java.util.Scanner(System.in);
+		
 		System.out.print("Enter a port number: ");
 		int portNum;
 		
@@ -48,12 +50,25 @@ public class Receiver { //server
 			}
 			
 		}
-		
+		InetAddress inetAddress;
 		in.close();
+		
+		try {
+			inetAddress = InetAddress.getLocalHost();
+			System.out.println("\nIP Address: " + inetAddress.getHostAddress());
+			System.out.println("Port: " + portNum);
+		} catch (Exception e) {
+			System.err.println("Error getting localhost ip.\nQuitting!");
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		
+		
 		
 		//creating server socket, and then client socket that has connected
 		try(
 				ServerSocket serverSocket = new ServerSocket(portNum);
+				
 				Socket clientSocket = serverSocket.accept();
 				BufferedReader sockIn = new BufferedReader( new InputStreamReader( clientSocket.getInputStream() ) );
 				)
