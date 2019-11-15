@@ -31,9 +31,11 @@ public class MethodTester {
 				myXMLOutput.setFormat(Format.getPrettyFormat());
 				System.out.println(myXMLOutput.outputString(doc));
 				
-				Sender.sendDoc(doc);
+				Deserializer myDeser = new Deserializer();
+				myDeser.deserialize(doc);
 				
-				//in.close();
+				//Sender.sendDoc(doc);
+				
 				
 				break;
 			}
@@ -47,7 +49,6 @@ public class MethodTester {
 				myXMLOutput.setFormat(Format.getPrettyFormat());
 				System.out.println(myXMLOutput.outputString(doc));
 				
-				//in.close();
 				
 				break;
 			}

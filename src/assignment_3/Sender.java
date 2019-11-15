@@ -21,7 +21,7 @@ public class Sender { //client
 	 * @param doc the document to send over the network
 	 */
 	public static void sendDoc(Document doc) {
-		String hostName = "assignment_3.Receiver";
+		String hostName = "localhost"; //Change when not on same PC ///////////////////////////////////////////////////////////////TODO
 		System.out.println("Document receiver MUST be currently running!!\n");
 		//Getting the port number of the server:
 		Scanner in = new java.util.Scanner(System.in);

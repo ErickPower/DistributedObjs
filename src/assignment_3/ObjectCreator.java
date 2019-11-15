@@ -73,7 +73,7 @@ public class ObjectCreator {
 			try {
 				//get next obj selection
 				printObjectMenu();
-				System.out.println("(" + (totalCreated - totalReferenced) + " objects currently, referencing " + totalReferenced + " more objects, for a total of " + totalCreated + " objects)");
+				System.out.println("(" + (totalCreated - totalReferenced) + " objects currently, referencing " + (myObjs.size()-(totalCreated - totalReferenced)) + " more objects, for a total of " + myObjs.size() + " objects)");
 				selection = Integer.parseInt(in.nextLine());
 				
 			} catch (NumberFormatException e) {
