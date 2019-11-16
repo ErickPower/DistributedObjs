@@ -6,14 +6,14 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/lib/jdom/jdom-2.0.6.jar">
+	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/src/jdom/jdom-2.0.6.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/lib/jdom/jdom-2.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/lib/jdom/jdom-2.0.6-contrib.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/lib/jdom/jdom-2.0.6-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/lib/jdom/jdom-2.0.6-junit.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/lib/jdom/jdom-2.0.6-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/src/jdom/jdom-2.0.6-contrib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/src/jdom/jdom-2.0.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/src/jdom/jdom-2.0.6-junit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Erick/Documents/Homework/cpsc501/DistributedObjs/src/jdom/jdom-2.0.6-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -12,11 +12,12 @@ public class ReceiverDriver {
 		Document doc = Receiver.receiveDoc();
 		
 		
-		System.out.println("Document received: ");
-		XMLOutputter myXMLOutput = new XMLOutputter();
+		System.out.println("Document received.");
+		
+		/*XMLOutputter myXMLOutput = new XMLOutputter();
 		
 		myXMLOutput.setFormat(Format.getPrettyFormat());
-		System.out.println(myXMLOutput.outputString(doc));
+		System.out.println(myXMLOutput.outputString(doc));*/
 		
 		
 		Object deserializedObjs = Deserializer.deserialize(doc);

@@ -16,11 +16,12 @@ public class SenderDriver {
 		System.out.println("Serializing objects...\n\n");
 		doc = Serializer.serialize(createdObjects);
 		
-		System.out.println("Document to be sent: ");
-		XMLOutputter myXMLOutput = new XMLOutputter();
+		System.out.println("Document to be sent.");
+		
+		/*XMLOutputter myXMLOutput = new XMLOutputter();
 		
 		myXMLOutput.setFormat(Format.getPrettyFormat());
-		System.out.println(myXMLOutput.outputString(doc));
+		System.out.println(myXMLOutput.outputString(doc));*/
 		
 		Sender.sendDoc(doc);
 
