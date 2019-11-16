@@ -12,20 +12,21 @@ public class Deserializer {
 		Element rootNode = doc.getRootElement();
 		List<Element> objElems = rootNode.getChildren();
 		Object[] objs = new Object[objElems.size()];
+		Object[] baseObjs = new Object[objElems.size()];
 		
-		createObjects(objElems, objs);
+		createObjects(objElems, objs, baseObjs);
 		
-		populateFields(objElems, objs);
+		populateFields(objElems, objs, baseObjs);
 		
 		/*
 		for(Object obj : objs) {
 			System.out.println("Object: " + obj.toString());
 		}*/
 		
-		return objs;
+		return baseObjs;
 	}
 	
-	private static void createObjects(List<Element> objElems, Object[] objs) {
+	private static void createObjects(List<Element> objElems, Object[] objs, Object[] baseObjs) {
 		try {
 			int id;
 			for(Element elem : objElems) {
@@ -55,6 +56,7 @@ public class Deserializer {
 				}
 				
 				objs[id] = currObj;
+				baseObjs[id] = currObj;
 				
 			}
 		} catch (Exception e) {
@@ -63,7 +65,7 @@ public class Deserializer {
 		}
 	}
 	
-	private static void populateFields(List<Element> objElems, Object[] objs) {
+	private static void populateFields(List<Element> objElems, Object[] objs, Object[] baseObjs) {
 		try {
 			int id;
 			for(Element currElem : objElems) {
@@ -82,7 +84,7 @@ public class Deserializer {
 					for(int i = 0; i < objFields.size(); ++i) {
 						Element arrayElemVal = objFields.get(i);
 						
-						Object arrayElemObj = deserializeElement(arrayElemVal, arrayType, objs);
+						Object arrayElemObj = deserializeElement(arrayElemVal, arrayType, objs, baseObjs);
 						
 						Array.set(currObj, i, arrayElemObj);
 						
@@ -97,7 +99,7 @@ public class Deserializer {
 					
 					//Add each reference element to the arrayList object, in order they are listed.
 					for(Element refEl : objFields) {
-						Object refObj = deserializeElement(refEl, currClass, objs);
+						Object refObj = deserializeElement(refEl, currClass, objs, baseObjs);
 						
 						listAdd.invoke(currObj, refObj);
 					}
@@ -120,7 +122,7 @@ public class Deserializer {
 						
 						//deserialize the <value> or <reference> element.
 						
-						Object fieldObject = deserializeElement(fieldChild, fieldType, objs);
+						Object fieldObject = deserializeElement(fieldChild, fieldType, objs, baseObjs);
 						
 						
 						field.set(currObj, fieldObject);
@@ -137,13 +139,16 @@ public class Deserializer {
 		}
 	}
 	
-	private static Object deserializeElement(Element el, Class elType, Object[] objs) {
+	private static Object deserializeElement(Element el, Class elType, Object[] objs, Object[] baseObjs) {
 		Object elementObject = null;
 		
 		String elementType = el.getName();
 		
 		if(elementType.equals("reference")) {
-			elementObject = objs[Integer.parseInt(el.getText())];
+			int id = Integer.parseInt(el.getText());
+			elementObject = objs[id];
+			baseObjs[id] = null;
+			
 		}
 		else if(elementType.equals("value")) {
 			elementObject = deserializePrim(el, elType);

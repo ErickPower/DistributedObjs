@@ -25,7 +25,7 @@ public class Visualizer {
 			String tabs = new String(new char[depth]).replace("\0", "\t"); //Code from https://stackoverflow.com/a/4903603
 			
 /*************** DECLARING CLASS ******************************/
-			System.out.println(tabs + c.getName());
+			System.out.println("\n" + tabs + c.getName());
 			
 
 
@@ -33,15 +33,21 @@ public class Visualizer {
 /*************** FIELDS ******************************/
 			
 			Field[] fields = c.getDeclaredFields();
-			if(fields.length > 0) {
+			/*if(fields.length > 0) {
 				System.out.println(tabs + "Fields of " + c.getName());
-			}
+			}*/
 			
 			for(int i = 0; i < fields.length; i++) {
 				
 /*************** modifiers ******************************/
 				int fieldModifier = fields[i].getModifiers();
-				System.out.print(tabs + " " + Modifier.toString(fieldModifier));
+				if(Modifier.isFinal(fieldModifier)) {
+					continue;
+				}
+				if(!fields[i].trySetAccessible()) {
+					continue;
+				}
+				System.out.print(tabs + "    " + Modifier.toString(fieldModifier));
 				
 /*************** type ******************************/
 				System.out.print(" " + fields[i].getType().getName());
@@ -51,47 +57,80 @@ public class Visualizer {
 				
 /*************** value ******************************/
 				if(obj != null) {
-					fields[i].setAccessible(true);
+					//fields[i].setAccessible(true);
+					
 					
 					Object instance = fields[i].get(obj);
 					if(instance != null) {
 						
-						boolean isObj = true;
+						
 						
 						//Dealing with array
 						if(instance.getClass().isArray()) {
 							int length = Array.getLength(instance);
-							System.out.print( " = [");
+							
+							if(instance.getClass().getComponentType().getName().startsWith("assignment")) {
+								System.out.print( " = \n" + tabs + "\t[");
+							}
+							else {
+								System.out.print( " = [");
+							}
+							
+							boolean isObj = false;
 							for ( int k = 0; k < length; k++ ) {
+								isObj = true;
 								Object element = Array.get(instance, k);
-								if(element == null || element.getClass().isPrimitive()) {
+								if(element == null) {
+									continue;
+								}
+								else if(/*element == null ||*/ element.getClass().isPrimitive()) {
 									System.out.print(element);
+									isObj = false;
 								}
 								else {
-									System.out.print(element.toString());
+									if(element.getClass().getName().startsWith("assignment")) {
+										inspectClass(element.getClass(), element, depth+1);
+									}
+									else{
+										System.out.print(element.toString());
+										isObj = false;
+									}
+									
 								}
 								if(k < length-1) {
-									System.out.print(",");
+									if(isObj) {
+										System.out.print(tabs + "\t" + ",");
+									}
+									else {
+										System.out.print(",");
+									}
+									
 								}
 							}
-							System.out.println("]");
+							if(isObj) {
+								System.out.println(tabs + "\t" + "]");
+							}
+							else {
+								System.out.println("]");
+							}
+							//System.out.println("]");
 						}
 						
 						//dealing with objects
 						else if(!fields[i].getType().isPrimitive()) {
-							System.out.println(" = " + instance.getClass().getName()+ "@" + Integer.toHexString(System.identityHashCode(instance)));
+							inspectClass(instance.getClass(), instance, depth+1);
+							//System.out.println(" = " + instance.getClass().getName()+ "@" + Integer.toHexString(System.identityHashCode(instance)));
 							
 						}
 						
 						//dealing with primitives
 						else {
 							System.out.println(" = " + instance);
-							isObj = false;
 						}
 						
-						if(isObj) {
+						/*if(isObj) {
 							inspectClass(null, instance, depth+1);
-						}
+						}*/
 					}
 					else {
 						System.out.println(" = " + instance);

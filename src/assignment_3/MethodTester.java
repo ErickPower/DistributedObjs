@@ -38,7 +38,7 @@ public class MethodTester {
 				myXMLOutput.setFormat(Format.getPrettyFormat());
 				System.out.println(myXMLOutput.outputString(doc));
 				
-				//Sender.sendDoc(doc);
+				Sender.sendDoc(doc);
 				
 				
 				break;
@@ -87,7 +87,11 @@ public class MethodTester {
 				if(deserializedObjs.getClass().isArray()) {
 					int len = Array.getLength(deserializedObjs);
 					for(int i = 0; i < len; ++i) {
-						Visualizer.inspect( Array.get(deserializedObjs, i) );
+						Object toDisplay = Array.get(deserializedObjs, i);
+						if(toDisplay == null) {
+							continue;
+						}
+						Visualizer.inspect( toDisplay );
 						System.out.println("");
 					}
 				}
