@@ -44,9 +44,13 @@ public class Visualizer {
 				if(Modifier.isFinal(fieldModifier)) {
 					continue;
 				}
-				if(!fields[i].trySetAccessible()) {
-					continue;
+				if(!fields[i].isAccessible()) {
+					fields[i].setAccessible(true);
 				}
+				
+				/*if(!fields[i].trySetAccessible()) {
+					continue;
+				}*/
 				System.out.print(tabs + "    " + Modifier.toString(fieldModifier));
 				
 /*************** type ******************************/

@@ -95,7 +95,10 @@ public class Deserializer {
 				else if(currClass == java.util.ArrayList.class) {
 					//children are references
 					Method listAdd = currClass.getMethod("add", Object.class);
-					listAdd.trySetAccessible();
+					if(!listAdd.isAccessible()) {
+						listAdd.setAccessible(true);
+					}
+					//listAdd.trySetAccessible();
 					
 					//Add each reference element to the arrayList object, in order they are listed.
 					for(Element refEl : objFields) {
@@ -114,7 +117,11 @@ public class Deserializer {
 						String fieldName = fieldEl.getAttributeValue("name");
 						
 						Field field = declaringClass.getDeclaredField(fieldName);
-						field.trySetAccessible();
+						
+						if(!field.isAccessible()) {
+							field.setAccessible(true);
+						}
+						//field.trySetAccessible();
 						
 						Class fieldType = field.getType();
 						//Get the <value> or <reference> element of the field.
